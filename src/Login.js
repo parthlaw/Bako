@@ -1,7 +1,21 @@
 import React, { useState, useRef } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import Cookies from 'js-cookie';
-const Login = ({ path }) => {
+import { connect } from 'react-redux';
+import { requestDetail } from './actions';
+const mapStateToProps = (state) => {
+	return {
+		detail: state.requestDetail.detail,
+		isPending: state.requestDetail.isPending,
+		err: state.requestDetail.err
+	};
+};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onRequestDetail: (data) => dispatch(requestDetail(data))
+	};
+};
+const Login = ({ path, onRequestDetail, detail }) => {
 	const [ email, setEmail ] = useState(null);
 	const [ logUname, setLogUname ] = useState(null);
 	const [ regUname, setRegUname ] = useState(null);
@@ -39,6 +53,7 @@ const Login = ({ path }) => {
 			.then((response) => response.json())
 			.then((data) => {
 				if (data.message === 'Authentication successful!') {
+					onRequestDetail(logUname);
 					console.log('login successful');
 					setTemp(true);
 					Cookies.set('token', data.token, { expires: 1 });
@@ -79,4 +94,4 @@ const Login = ({ path }) => {
 		</div>
 	);
 };
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

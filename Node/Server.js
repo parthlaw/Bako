@@ -160,21 +160,27 @@ app.post('/chat', middleware.checkToken, (req, res) => {
 app.post('/chatCheck', middleware.checkToken, (req, res) => {
 	res.json('Authorized');
 });
+app.post('/dash', (req, res) => {
+	const { username } = req.body;
+	db.query('SELECT userid,username,email FROM users WHERE "username"=$1', [ username ], (err, response) => {
+		if (err) {
+			console.log(err);
+		}
+		res.json(response.rows[0]);
+	});
+});
+app.get('/logout', (req, res) => {
+	console.log('logged out');
+});
 
 const server = app.listen(3001);
 var data = [];
 const io = socket(server);
 io.on('connection', (socket) => {
 	console.log('connection', socket.id);
-	socket.on('sendList', (data) => {
-		const { username, roomName } = data;
-		addRoom(username, roomName);
-		io.sockets.emit('sendList', { data: data });
-	});
 
 	socket.on('join', ({ name, room }, callback) => {
 		const { error, user } = addUser({ id: socket.id, name, room });
-
 		if (error) return callback(error);
 
 		socket.join(user.room);
@@ -189,9 +195,16 @@ io.on('connection', (socket) => {
 
 	socket.on('sendMessage', (message, callback) => {
 		const user = getUser(socket.id);
-		addMessage(user.room, user.name, message);
 		io.to(user.room).emit('message', { user: user.name, text: message });
 
 		callback();
+	});
+	socket.on('disconnect', () => {
+		const user = removeUser(socket.id);
+
+		if (user) {
+			io.to(user.room).emit('message', { user: 'Admin', text: `${user.name} has left.` });
+			io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+		}
 	});
 });

@@ -1,42 +1,53 @@
 import React, { useState, useEffect } from 'react';
-import Login from './Login';
-import Chat from './Chat';
-import './App.css';
+import Login from './Login/Login';
+import Chat from './Chat/Chat';
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom';
-import Dashboard from './Dashboard';
+import Dashboard from './Dashboard/Dashboard';
 import Cookies from 'js-cookie';
-const App = () => {
+import { connect } from 'react-redux';
+import { requestDetail } from './Redux/actions';
+const mapStateToProps = (state) => {
+	return {
+		detail: state.requestDetail.detail,
+		isPending: state.requestDetail.isPending,
+		err: state.requestDetail.err
+	};
+};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onRequestDetail: (data) => dispatch(requestDetail(data))
+	};
+};
+const App = ({ onRequestDetail }) => {
 	const [ route, setRoute ] = useState(false);
-	const [ chang, setChang ] = useState(null);
-	const [ auth, setAuth ] = useState(false);
+	const [ auth, setAuth ] = useState(Cookies.get('ok'));
 	const Check = () => {
-		fetch('http://localhost:3001/chatCheck', {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: 'Bearer ' + Cookies.get('token')
-			}
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				console.log(data);
-				if (data === 'Authorized') {
-					setAuth(true);
+		if (Cookies.get('token')) {
+			fetch('http://localhost:3001/chatCheck', {
+				method: 'post',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: 'Bearer ' + Cookies.get('token')
 				}
-			});
+			})
+				.then((response) => response.json())
+				.then((data) => {
+					if (data === 'Authorized') {
+						setAuth(true);
+						Cookies.set('ok', true, { expires: 1 });
+						onRequestDetail(Cookies.get('username'));
+					}
+				});
+		} else return <Redirect to="/" />;
 	};
 	useEffect(
 		() => {
 			Check();
-			console.log(auth);
 		},
 		[ Cookies.get('room'), Cookies.get('username') ]
 	);
 	const path = (x) => {
 		setRoute(x);
-	};
-	const change = () => {
-		setChang(1);
 	};
 	if (Cookies.get('route')) {
 		return (
@@ -45,7 +56,7 @@ const App = () => {
 					<Route exact path="/">
 						<Dashboard pp={path} />
 					</Route>
-					<Route path="/chat" component={Chat} />
+					<Route path="/chat">{!auth ? <Redirect to="/" /> : <Chat />}</Route>
 				</Switch>
 			</Router>
 		);
@@ -62,4 +73,4 @@ const App = () => {
 	}
 };
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

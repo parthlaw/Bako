@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import RoomName from './RoomName';
+import RoomName from './RoomName/RoomName';
 import io from 'socket.io-client';
 import Cookies from 'js-cookie';
 let socket;
@@ -13,11 +13,11 @@ const RoomList = () => {
 		[ ENDPOINT ]
 	);
 	useEffect(() => {
-		socket.on('sendList', (data) => {
-			setRooms(data.data.roomName);
-			console.log(data.data.roomName);
-		});
+		setRooms(Cookies.get('room'));
 	}, []);
+	if (!rooms) {
+		return <h1>Loading</h1>;
+	}
 	return (
 		<div>
 			<RoomName room={rooms} />

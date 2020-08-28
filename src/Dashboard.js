@@ -4,7 +4,21 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import CreateRoom from './CreateRoom';
 import JoinRoom from './JoinRoom';
 import RoomList from './RoomList';
-const Dashboard = ({ pp }) => {
+import { connect } from 'react-redux';
+import { deleteUser } from './actions';
+const mapStateToProps = (state) => {
+	return {
+		detail: state.requestDetail.detail,
+		isPending: state.requestDetail.isPending,
+		err: state.requestDetail.err
+	};
+};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		deleteUser: (detail) => dispatch(deleteUser(detail))
+	};
+};
+const Dashboard = ({ pp, detail, deleteUser }) => {
 	const [ form, setForm ] = useState(false);
 	const [ join, setJoin ] = useState(false);
 	const onLogout = () => {
@@ -13,6 +27,7 @@ const Dashboard = ({ pp }) => {
 		Cookies.remove('room');
 		Cookies.remove('token');
 		Cookies.remove('chat');
+		deleteUser(detail);
 		pp(false);
 	};
 	return (
@@ -37,4 +52,4 @@ const Dashboard = ({ pp }) => {
 		</div>
 	);
 };
-export default Dashboard;
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

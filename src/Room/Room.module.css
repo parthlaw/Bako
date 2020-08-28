@@ -1,0 +1,58 @@
+.container {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	background: #36404d;
+	border-radius: 20px;
+	color: white;
+	border: 2px solid #643f66;
+	border-spacing: 70px;
+	animation: zoom 0.25s;
+	position: absolute;
+	z-index: 1;
+}
+@keyframes zoom {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
+.container i {
+	transform: translateX(35px);
+	color: rgb(59, 59, 59);
+}
+.container input {
+	outline: none;
+	border-radius: 30px;
+	border: 2px solid red;
+	width: 300px;
+	height: 45px;
+	background: white;
+	margin-top: 25px;
+	padding-left: 40px;
+	padding-right: 20px;
+
+	font-size: 16px;
+	transition: all -4s;
+}
+.container button {
+	display: inline-block;
+	cursor: pointer;
+	width: 70%;
+	padding: 20px;
+	margin-top: 20px;
+	background: rgb(43, 91, 224);
+	color: white;
+	font-size: 16px;
+	letter-spacing: 1px;
+	border-radius: 3px;
+	border: none;
+	outline: none;
+	transition: -4s;
+}
+.p {
+	color: white;
+}

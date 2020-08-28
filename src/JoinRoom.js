@@ -29,7 +29,6 @@ const JoinRoom = () => {
 			<div>
 				<i className="fas fa-envelope" />
 				<br />
-				<input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} required />
 				<br />
 				<br />
 			</div>

@@ -1,0 +1,23 @@
+.p {
+	text-align: center;
+	align-items: center;
+	background-image: radial-gradient(green, #136207);
+	border-radius: 20px;
+	border: 2px solid #136207;
+	border-spacing: 70px;
+	animation: zoom 0.25s;
+	z-index: 1;
+	font-size: 70px;
+}
+a {
+	color: white;
+	text-decoration: none;
+}
+@keyframes zoom {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
+}
