@@ -43,23 +43,6 @@ const removeUser = (id) => {
 const getUser = (id) => users.find((user) => user.id === id);
 
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
-
-function addRoom(username, roomName) {
-	db.query('INSERT INTO joined(username,roomname) VALUES($1,$2)', [ username, roomName ], (err, response) => {
-		console.log(err, response);
-	});
-}
-function addMessage(room, name, message) {
-	const timestamp = new Date();
-	db.query(
-		'INSERT INTO chat(room,user,text,timestamp) VALUES($1,$2,$3,$4)',
-		[ room, name, message, timestamp ],
-		(err, response) => {
-			console.log(err, response);
-		}
-	);
-}
-
 app.post('/register', (req, res) => {
 	const { email, username, password } = req.body;
 	const hash = bcrypt.hashSync(password, 10);
