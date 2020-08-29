@@ -58,16 +58,16 @@ const Login = ({ path, onRequestDetail, detail }) => {
 			.then((data) => {
 				if (data.message === 'Authentication successful!') {
 					onRequestDetail(logUname);
-					console.log('login successful');
+					alert('Login Successful');
 					setTemp(true);
 					Cookies.set('token', data.token, { expires: 1 });
 					Cookies.set('username', logUname, { expires: 1 });
 					Cookies.set('route', true);
 					path(true);
 				} else if (data === 'incorrect username') {
-					console.log('incorrect username');
+					alert('Incorrect Username');
 				} else {
-					console.log('fail');
+					alert('Incorrect Password');
 				}
 			});
 	};
