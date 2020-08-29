@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './CreateRoom.module.css';
 import Cookies from 'js-cookie';
 const CreateRoom = ({ onCancel }) => {
@@ -11,13 +11,26 @@ const CreateRoom = ({ onCancel }) => {
 	const onSubmit = () => {
 		fetch('http://localhost:3001/room', {
 			method: 'post',
-			headers: { 'Content-Type': 'application/json' },
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: 'Bearer ' + Cookies.get('token')
+			},
 			body: JSON.stringify({
 				roomName: roomName,
 				creater: creater,
 				password: password
 			})
-		});
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+				if (data === 'Fail') {
+					alert('Failed to Create room please use different roomname');
+				} else if (data === 'Success') {
+					onCancel();
+					alert('Room created. Join to continue');
+				}
+			});
 	};
 	return (
 		<div className={styles.container} id="form">

@@ -93,6 +93,10 @@ app.post('/room', middleware.checkToken, (req, res) => {
 		[ roomName, creater, hash ],
 		(err, response) => {
 			console.log(err, response);
+			if (err) {
+				res.json('Fail');
+			}
+			res.json('Success');
 		}
 	);
 });

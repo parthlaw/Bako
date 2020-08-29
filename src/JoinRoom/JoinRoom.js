@@ -23,9 +23,9 @@ const JoinRoom = ({ onCancel, Show }) => {
 					Cookies.set('room', roomName, { expires: 1 });
 					Show();
 				} else if (data === 'incorrect roomName') {
-					console.log('incorrect roomName');
+					alert('Room does not exists');
 				} else {
-					console.log('fail');
+					alert('Incorrect Password');
 				}
 			});
 	};
