@@ -5,7 +5,7 @@ const JoinRoom = ({ onCancel, Show }) => {
 	const [ roomName, setRoomName ] = useState(null);
 	const [ password, setPassword ] = useState(null);
 	const onJoin = () => {
-		fetch('http://localhost:3001/join', {
+		fetch('https://bako-crypto.herokuapp.com/join', {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json',

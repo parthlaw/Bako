@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 let socket;
 const RoomList = () => {
 	const [ rooms, setRooms ] = useState(null);
-	const ENDPOINT = 'http://localhost:3001';
+	const ENDPOINT = 'https://bako-crypto.herokuapp.com/';
 	useEffect(
 		() => {
 			socket = io(ENDPOINT);

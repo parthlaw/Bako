@@ -23,7 +23,7 @@ const App = ({ onRequestDetail }) => {
 	const [ auth, setAuth ] = useState(Cookies.get('ok'));
 	const Check = () => {
 		if (Cookies.get('token')) {
-			fetch('http://localhost:3001/chatCheck', {
+			fetch('https://bako-crypto.herokuapp.com/chatCheck', {
 				method: 'post',
 				headers: {
 					'Content-Type': 'application/json',

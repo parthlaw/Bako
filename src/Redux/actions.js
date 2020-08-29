@@ -1,7 +1,7 @@
 import { REQUEST_USER_PENDING, REQUEST_USER_SUCCESS, REQUEST_USER_FAILED, DELETE_USER } from './constants.js';
 export const requestDetail = (data) => (dispatch) => {
 	dispatch({ type: REQUEST_USER_PENDING });
-	fetch('http://localhost:3001/dash', {
+	fetch('https://bako-crypto.herokuapp.com/dash', {
 		method: 'post',
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify({

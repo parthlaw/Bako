@@ -9,7 +9,7 @@ const CreateRoom = ({ onCancel }) => {
 		setCreater(Cookies.get('username'));
 	}, []);
 	const onSubmit = () => {
-		fetch('http://localhost:3001/room', {
+		fetch('https://bako-crypto.herokuapp.com/room', {
 			method: 'post',
 			headers: {
 				'Content-Type': 'application/json',

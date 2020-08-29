@@ -92,3 +92,11 @@ button {
 	margin-bottom: 10px;
 	margin-right: 10%;
 }
+button:hover {
+	cursor: pointer;
+	background: green;
+}
+.button:hover {
+	cursor: pointer;
+	background: green;
+}

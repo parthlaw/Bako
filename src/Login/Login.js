@@ -26,7 +26,7 @@ const Login = ({ path, onRequestDetail, detail }) => {
 	const [ login, setLogin ] = useState(false);
 	const log = useRef(null);
 	const onReg = () => {
-		fetch('http://localhost:3001/register', {
+		fetch('https://bako-crypto.herokuapp.com/register', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
@@ -46,7 +46,7 @@ const Login = ({ path, onRequestDetail, detail }) => {
 			});
 	};
 	const onLogin = () => {
-		fetch('http://localhost:3001/login', {
+		fetch('https://bako-crypto.herokuapp.com/login', {
 			method: 'post',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({

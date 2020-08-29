@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { deleteUser } from '../Redux/actions';
 import styles from './Dashboard.module.css';
 import Room from '../Room/Room';
+import Logo from '../Logo.png';
 const mapStateToProps = (state) => {
 	return {
 		detail: state.requestDetail.detail,
@@ -31,7 +32,7 @@ const Dashboard = ({ pp, detail, deleteUser, isPending }) => {
 		Cookies.remove('ok');
 		Cookies.remove('io');
 		deleteUser(detail);
-		fetch('http://localhost:3001/logout');
+		fetch('https://bako-crypto.herokuapp.com/logout');
 		pp(false);
 	};
 	const ShowRoom = () => {
@@ -49,7 +50,8 @@ const Dashboard = ({ pp, detail, deleteUser, isPending }) => {
 		return (
 			<div className={styles.Outer}>
 				<div className={styles.Inner}>
-					<h1>LOADING</h1>
+					<img src={Logo} alt="loading icon" />
+					<h1 className={styles.heading}>LOADING</h1>
 				</div>
 			</div>
 		);

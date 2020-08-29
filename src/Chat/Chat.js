@@ -24,7 +24,7 @@ const Chat = ({ location, detail }) => {
 	const [ users, setUsers ] = useState('');
 	const [ message, setMessage ] = useState('');
 	const [ messages, setMessages ] = useState([]);
-	const ENDPOINT = 'http://localhost:3001';
+	const ENDPOINT = 'https://bako-crypto.herokuapp.com/';
 	useEffect(
 		() => {
 			setRoom(Cookies.get('room'));
