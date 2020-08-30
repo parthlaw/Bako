@@ -40,7 +40,7 @@ const CreateRoom = ({ onCancel }) => {
 					<br />
 					<input
 						type="text"
-						placeholder="Room Name(Should be unique)"
+						placeholder="Room Name(Unique)"
 						onChange={(e) => setRoomName(e.target.value)}
 						required
 					/>

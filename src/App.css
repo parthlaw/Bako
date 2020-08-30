@@ -1,30 +1,8 @@
-.left-messages {
-	float: left;
-	border-right: 1px solid black;
-	height: 100px;
-	overflow-y: visible;
-}
-.right-messages {
+body {
 	display: flex;
-	flex-direction: column;
-	justify-content: flex-end;
-	position: relative;
-}
-.incoming {
-	float: left;
-	margin: 20px;
-}
-.outgoing {
-	border: 1px solid black;
-	width: fit-content;
-	margin: 20px;
-}
-.right-down-messages {
-	position: fixed;
-	float: right;
-	bottom: 0;
-}
-.incoming-msg {
-	border: 1px solid black;
-	width: fit-content;
+	justify-content: center;
+	text-align: center;
+	height: 100vh;
+	align-items: center;
+	background-color: #1a1a1d;
 }
