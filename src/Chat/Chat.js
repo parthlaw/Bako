@@ -7,7 +7,7 @@ import InfoBar from '../InfoBar/InfoBar';
 import Input from '../Input/Input';
 import { connect } from 'react-redux';
 
-import './Chat.css';
+import styles from './Chat.module.css';
 
 let socket;
 const mapStateToProps = (state) => {
@@ -63,8 +63,8 @@ const Chat = ({ location, detail }) => {
 		}
 	};
 	return (
-		<div className="outerContainer">
-			<div className="container">
+		<div className={styles.outerContainer}>
+			<div className={styles.container}>
 				<InfoBar room={room} />
 				<Messages messages={messages} name={name} />
 				<Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
