@@ -3,6 +3,7 @@ import Cookies, { set } from 'js-cookie';
 import { connect } from 'react-redux';
 import { requestDetail } from '../Redux/actions';
 import styles from './Login.module.css';
+import Logo from '../Logo.png';
 const mapStateToProps = (state) => {
 	return {
 		detail: state.requestDetail.detail,
@@ -15,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
 		onRequestDetail: (data) => dispatch(requestDetail(data))
 	};
 };
-const Login = ({ path, onRequestDetail, detail }) => {
+const Login = ({ path, onRequestDetail, detail, isPending }) => {
 	const [ email, setEmail ] = useState(null);
 	const [ logUname, setLogUname ] = useState(null);
 	const [ regUname, setRegUname ] = useState(null);
@@ -71,129 +72,140 @@ const Login = ({ path, onRequestDetail, detail }) => {
 				}
 			});
 	};
-	if (reg) {
+	if (isPending) {
 		return (
-			<div className={styles.Main}>
-				<div className={styles.select}>
-					<button
-						onClick={() => {
-							setLogin(false);
-							setReg(true);
-						}}
-					>
-						Signup
-					</button>
-					<button
-						onClick={() => {
-							setReg(false);
-							setLogin(true);
-						}}
-					>
-						Login
-					</button>
-				</div>
-				<div className={styles.Outer}>
-					<div className={styles.regContainer}>
-						<h1 className={styles.heading}>Signup</h1>
-						<input
-							className={styles.joinInput}
-							type="text"
-							placeholder="email"
-							onChange={(e) => setEmail(e.target.value)}
-						/>
-						<input
-							className={styles.joinInput}
-							type="text"
-							placeholder="username"
-							onChange={(e) => setRegUname(e.target.value)}
-						/>
-						<input
-							className={styles.joinInput}
-							type="password"
-							placeholder="password"
-							onChange={(e) => setRegpass(e.target.value)}
-						/>
-
-						<input
-							className={styles.button}
-							type="submit"
-							placeholder="submit"
-							onClick={(e) => (!email || !regUname || !regPass ? e.preventDefault() : onReg(e))}
-						/>
-					</div>
-				</div>
-			</div>
-		);
-	} else if (login) {
-		return (
-			<div className={styles.Main}>
-				<div className={styles.select}>
-					<button
-						onClick={() => {
-							setLogin(false);
-							setReg(true);
-						}}
-					>
-						Signup
-					</button>
-					<button
-						onClick={() => {
-							setReg(false);
-							setLogin(true);
-						}}
-					>
-						Login
-					</button>
-				</div>
-				<div className={styles.Outer}>
-					<div className={styles.logContainer}>
-						<h1 className={styles.heading}>Login</h1>
-						<input
-							className={styles.joinInput}
-							type="text"
-							placeholder="username"
-							onChange={(e) => setLogUname(e.target.value)}
-							ref={log}
-						/>
-						<input
-							className={styles.joinInput}
-							type="password"
-							placeholder="password"
-							onChange={(e) => setLogPass(e.target.value)}
-						/>
-						<input
-							className={styles.button}
-							type="submit"
-							placeholder="submit"
-							onClick={(e) => (!logUname || !logPass ? e.preventDefault() : onLogin(e))}
-						/>
-					</div>
+			<div className={styles.Outer}>
+				<div className={styles.Inner}>
+					<img src={Logo} alt="loading icon" />
+					<h1 className={styles.heading}>LOADING</h1>
 				</div>
 			</div>
 		);
 	} else {
-		return (
-			<div className={styles.Main}>
-				<div className={styles.select}>
-					<button
-						onClick={() => {
-							setLogin(false);
-							setReg(true);
-						}}
-					>
-						Signup
-					</button>
-					<button
-						onClick={() => {
-							setReg(false);
-							setLogin(true);
-						}}
-					>
-						Login
-					</button>
+		if (reg) {
+			return (
+				<div className={styles.Main}>
+					<div className={styles.select}>
+						<button
+							onClick={() => {
+								setLogin(false);
+								setReg(true);
+							}}
+						>
+							Signup
+						</button>
+						<button
+							onClick={() => {
+								setReg(false);
+								setLogin(true);
+							}}
+						>
+							Login
+						</button>
+					</div>
+					<div className={styles.Outer}>
+						<div className={styles.regContainer}>
+							<h1 className={styles.heading}>Signup</h1>
+							<input
+								className={styles.joinInput}
+								type="text"
+								placeholder="email"
+								onChange={(e) => setEmail(e.target.value)}
+							/>
+							<input
+								className={styles.joinInput}
+								type="text"
+								placeholder="username"
+								onChange={(e) => setRegUname(e.target.value)}
+							/>
+							<input
+								className={styles.joinInput}
+								type="password"
+								placeholder="password"
+								onChange={(e) => setRegpass(e.target.value)}
+							/>
+
+							<input
+								className={styles.button}
+								type="submit"
+								placeholder="submit"
+								onClick={(e) => (!email || !regUname || !regPass ? e.preventDefault() : onReg(e))}
+							/>
+						</div>
+					</div>
 				</div>
-			</div>
-		);
+			);
+		} else if (login) {
+			return (
+				<div className={styles.Main}>
+					<div className={styles.select}>
+						<button
+							onClick={() => {
+								setLogin(false);
+								setReg(true);
+							}}
+						>
+							Signup
+						</button>
+						<button
+							onClick={() => {
+								setReg(false);
+								setLogin(true);
+							}}
+						>
+							Login
+						</button>
+					</div>
+					<div className={styles.Outer}>
+						<div className={styles.logContainer}>
+							<h1 className={styles.heading}>Login</h1>
+							<input
+								className={styles.joinInput}
+								type="text"
+								placeholder="username"
+								onChange={(e) => setLogUname(e.target.value)}
+								ref={log}
+							/>
+							<input
+								className={styles.joinInput}
+								type="password"
+								placeholder="password"
+								onChange={(e) => setLogPass(e.target.value)}
+							/>
+							<input
+								className={styles.button}
+								type="submit"
+								placeholder="submit"
+								onClick={(e) => (!logUname || !logPass ? e.preventDefault() : onLogin(e))}
+							/>
+						</div>
+					</div>
+				</div>
+			);
+		} else {
+			return (
+				<div className={styles.Main}>
+					<div className={styles.select}>
+						<button
+							onClick={() => {
+								setLogin(false);
+								setReg(true);
+							}}
+						>
+							Signup
+						</button>
+						<button
+							onClick={() => {
+								setReg(false);
+								setLogin(true);
+							}}
+						>
+							Login
+						</button>
+					</div>
+				</div>
+			);
+		}
 	}
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
